@@ -1,0 +1,56 @@
+<%- include ("partials/header") %>
+<body>
+  <%- include ("partials/navbar") %>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Pergunta numero: <%= pergunta.id %></h3>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="responderPergunta">
+          <label>Título</label>
+          <input
+            name="Titulo"
+            type="text"
+            placeholder="<%= pergunta.titulo%>"
+            disabled
+            class="form-control"
+          />
+          <label>Descrição</label>
+          <textarea
+            name="Descricao"
+            disabled
+            class="form-control"
+            placeholder="<%= pergunta.descricao%>"
+          ></textarea>
+
+          <div class="buttonsPerguntar">
+            <a href="/responderPergunta/<%= pergunta.id %>">
+              <button type="button" class="btn btn-success">
+                Responder
+              </button> </a
+            ><a href="/"
+              ><button type="button" class="btn btn-primary">Voltar</button></a
+            >
+          </div>
+        </form>
+
+        <div class="respostas">
+          <% if (resposta) { %>
+          <h3>Respostas</h3>
+          <% for (let x of resposta) { %>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text"><%= x.resposta %></p>
+              <p class="footerTempo">
+                data de criação <%= formatarData(x.createdAt) %>
+              </p>
+            </div>
+          </div>
+          <% } } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include ("partials/footer") %>

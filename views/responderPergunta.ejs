@@ -1,0 +1,45 @@
+<%- include ("partials/header") %>
+<body>
+  <%- include ("partials/navbar") %>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Pergunta numero: <%= pergunta.id %></h3>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/responderPergunta/<%=pergunta.id%>">
+          <label>Título</label>
+          <input
+            name="Titulo"
+            type="text"
+            placeholder="<%= pergunta.titulo%>"
+            disabled
+            class="form-control"
+          />
+          <label>Descrição</label>
+          <textarea
+            name="Descricao"
+            disabled
+            class="form-control"
+            placeholder="<%= pergunta.descricao%>"
+          ></textarea>
+
+          <label>Resposta</label>
+          <textarea
+            name="Resposta"
+            class="form-control"
+            placeholder="Resposta"
+          ></textarea>
+
+          <div class="buttonsPerguntar">
+            <button type="submit" class="btn btn-success">Enviar</button>
+            <a href="/"
+              ><button type="button" class="btn btn-primary">Voltar</button></a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include ("partials/footer") %>

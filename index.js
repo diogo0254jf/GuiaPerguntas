@@ -3,6 +3,10 @@ let ejs = require("ejs");
 const bodyParses = require("body-parser");
 const connection = require("./database/database");
 const Pergunta = require("./database/pergunta");
+const Resposta = require("./database/resposta");
+
+const moment = require('moment');
+
 connection
   .authenticate()
   .then(() => {
@@ -13,6 +17,10 @@ connection
   });
 
 const app = express();
+
+app.locals.formatarData = function (data) {
+  return moment(data).format("DD/MM/YYYY HH:mm");
+};
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -36,13 +44,18 @@ app.get("/pergunta/:id", (req, res) => {
   Pergunta.findOne({
     where: { id: id },
   }).then((element) => {
-    if (element != undefined) {
-      res.render("pergunta", {
-        pergunta: element,
-      });
-    } else {
-      res.redirect("/");
-    }
+    Resposta.findAll({
+      where: { idpergunta: element.id },
+    }).then((resposta) => {
+      if (element != undefined && resposta != undefined) {
+        res.render("pergunta", {
+          pergunta: element,
+          resposta: resposta,
+        });
+      } else {
+        res.redirect("/");
+      }
+    });
   });
 });
 
@@ -53,6 +66,32 @@ app.post("/salvarpergunta", (req, res) => {
   Pergunta.create({
     titulo: titulo,
     descricao: descricao,
+  }).then(() => {
+    res.redirect("/");
+  });
+});
+
+app.get("/responderPergunta/:id", (req, res) => {
+  let id = req.params.id;
+  Pergunta.findOne({
+    where: { id: id },
+  }).then((element) => {
+    if (element != undefined) {
+      res.render("responderPergunta", {
+        pergunta: element,
+      });
+    } else {
+      res.redirect("/");
+    }
+  });
+});
+
+app.post("/responderPergunta/:id", (req, res) => {
+  let id = req.params.id;
+  let resposta = req.body.Resposta;
+  Resposta.create({
+    idpergunta: id,
+    resposta: resposta,
   }).then(() => {
     res.redirect("/");
   });

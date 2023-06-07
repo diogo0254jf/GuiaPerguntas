@@ -12,6 +12,12 @@ body {
   margin: 5vh;
 }
 
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card-body button {
   display: block;
 
@@ -24,7 +30,7 @@ body {
 }
 
 .btnNovaPergunta {
-    width: 100%;
+  width: 100%;
   margin: 1rem auto 0 auto;
 }
 
@@ -32,4 +38,14 @@ body {
   display: flex;
   justify-content: center;
   gap: 1rem;
+}
+
+.footerTempo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 0;
+    padding: 0;
+    opacity: .4;
+    font-size: smaller;
 }
