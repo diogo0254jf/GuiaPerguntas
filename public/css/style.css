@@ -1,0 +1,35 @@
+body {
+  background-color: #eceff1;
+}
+
+.container {
+  margin-top: 5vw;
+  background-color: #d8dee3;
+  padding: 1rem;
+}
+
+.card {
+  margin: 5vh;
+}
+
+.card-body button {
+  display: block;
+
+  margin-top: 1rem;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
+}
+
+.btnNovaPergunta {
+    width: 100%;
+  margin: 1rem auto 0 auto;
+}
+
+.buttonsPerguntar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
