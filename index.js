@@ -5,7 +5,7 @@ const connection = require("./database/database");
 const Pergunta = require("./database/pergunta");
 const Resposta = require("./database/resposta");
 
-const moment = require('moment');
+const moment = require("moment");
 
 connection
   .authenticate()
@@ -46,9 +46,10 @@ app.get("/pergunta/:id", (req, res) => {
   }).then((element) => {
     Resposta.findAll({
       where: { idpergunta: element.id },
+      order: [["id", "DESC"]],
     }).then((resposta) => {
       if (element != undefined && resposta != undefined) {
-        res.render("pergunta", {
+        res.render("Pergunta/pergunta", {
           pergunta: element,
           resposta: resposta,
         });
@@ -71,29 +72,14 @@ app.post("/salvarpergunta", (req, res) => {
   });
 });
 
-app.get("/responderPergunta/:id", (req, res) => {
-  let id = req.params.id;
-  Pergunta.findOne({
-    where: { id: id },
-  }).then((element) => {
-    if (element != undefined) {
-      res.render("responderPergunta", {
-        pergunta: element,
-      });
-    } else {
-      res.redirect("/");
-    }
-  });
-});
-
-app.post("/responderPergunta/:id", (req, res) => {
-  let id = req.params.id;
+app.post("/responderPergunta", (req, res) => {
+  let id = req.body.id;
   let resposta = req.body.Resposta;
   Resposta.create({
     idpergunta: id,
     resposta: resposta,
   }).then(() => {
-    res.redirect("/");
+    res.redirect(`/pergunta/${id}`);
   });
 });
 

@@ -1,13 +1,13 @@
-<%- include ("partials/header") %>
+<%- include ("../partials/header") %>
 <body>
-  <%- include ("partials/navbar") %>
+  <%- include ("../partials/navbar") %>
   <div class="container">
     <div class="card">
       <div class="card-header">
         <h3>Pergunta numero: <%= pergunta.id %></h3>
       </div>
       <div class="card-body">
-        <form method="POST" action="responderPergunta">
+        <form method="POST" action="/responderPergunta" class="formulario">
           <label>Título</label>
           <input
             name="Titulo"
@@ -24,11 +24,15 @@
             placeholder="<%= pergunta.descricao%>"
           ></textarea>
 
+          <label>Resposta</label>
+          <textarea
+            name="Resposta"
+            class="form-control"
+            placeholder="Resposta"
+          ></textarea>
+          <input type="hidden" name="id" value="<%= pergunta.id%>" />
           <div class="buttonsPerguntar">
-            <a href="/responderPergunta/<%= pergunta.id %>">
-              <button type="button" class="btn btn-success">
-                Responder
-              </button> </a
+            <button type="submit" class="btn btn-success">Responder</button
             ><a href="/"
               ><button type="button" class="btn btn-primary">Voltar</button></a
             >
@@ -36,7 +40,7 @@
         </form>
 
         <div class="respostas">
-          <% if (resposta) { %>
+          <% if (resposta != "") { %>
           <h3>Respostas</h3>
           <% for (let x of resposta) { %>
           <div class="card">
@@ -47,10 +51,12 @@
               </p>
             </div>
           </div>
-          <% } } %>
+          <% } %> <% } else {%>
+          <h3 class="RespostaVazia">Não há respostas para esta pergunta</h3>
+          <% } %>
         </div>
       </div>
     </div>
   </div>
 </body>
-<%- include ("partials/footer") %>
+<%- include ("../partials/footer") %>
