@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/perguntar", (req, res) => {
-  res.render("perguntar");
+  res.render("RealizarPergunta/perguntar");
 });
 
 app.get("/pergunta/:id", (req, res) => {
